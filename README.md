@@ -1,6 +1,9 @@
 # Godot-SDF (Iteration 3?)
 Now based on https://godotshaders.com/shader/raymarch-in-a-box/
 
+# Purpose
+This project is mainly a way for me to get my hands wet in sdfs and shader design. I do not advice you to use any of the code anywhere, but to instead watch an actual tutorial or course about this subject (I did neither).
+
 ![promo/gnome-shell-screenshot-XQJ4Z0.png](promo/gnome-shell-screenshot-XQJ4Z0.png)
 
 # Usage Instructions
