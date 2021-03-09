@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://raymarching.shader" type="Shader" id=1]
+[ext_resource path="res://CSGBox.gd" type="Script" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/domainScale = Vector3( 5, 2.5, 5 )
+shader_param/repeatLimit = Vector3( 2, 2, 2 )
+shader_param/s1 = Vector3( 0, 0, 0 )
+shader_param/s1s = 0.5
+shader_param/s1b = true
+shader_param/s2 = Vector3( -0.00123, 0.431529, -0.0143469 )
+shader_param/s2s = 0.25
+shader_param/s2b = false
+shader_param/s3 = Vector3( -0.00123, 0.529909, -0.0143469 )
+shader_param/s3s = 0.2
+shader_param/s3b = true
+shader_param/s4 = Vector3( 0.554398, 0, 0 )
+shader_param/s4s = 0.0
+shader_param/s4b = true
+shader_param/b1 = Vector3( 0, -0.126718, 0 )
+shader_param/b1s = 1.0
+shader_param/b1b = true
+shader_param/b2 = Vector3( 0, 0.706839, 0 )
+shader_param/b2s = 0.9
+shader_param/b2b = false
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CSGBox" type="CSGBox" parent="."]
+width = 10.0
+height = 5.0
+depth = 10.0
+material = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="BB" type="CSGSphere" parent="CSGBox"]
+visible = false
+radius = 0.5
+radial_segments = 8
+rings = 4
+
+[node name="Head" type="Spatial" parent="CSGBox/BB"]
+
+[node name="CSGSphere2" type="CSGSphere" parent="CSGBox/BB/Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00123, 0.431529, -0.0143469 )
+visible = false
+invert_faces = true
+radius = 0.25
+radial_segments = 8
+rings = 4
+
+[node name="CSGSphere3" type="CSGSphere" parent="CSGBox/BB/Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00123, 0.529909, -0.0143469 )
+visible = false
+radius = 0.2
+radial_segments = 8
+rings = 4
+smooth_faces = false
+
+[node name="Boxes" type="Spatial" parent="CSGBox"]
+
+[node name="CSGBox3" type="CSGBox" parent="CSGBox/Boxes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.126718, 0 )
+visible = false
+width = 1.0
+height = 1.0
+depth = 1.0
+
+[node name="CSGBox2" type="CSGBox" parent="CSGBox/Boxes"]
+transform = Transform( 0.9, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.706839, 0 )
+visible = false
+invert_faces = true
+width = 1.0
+height = 1.0
+depth = 1.0
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.969317, 0.245815, 0, -0.245815, 0.969317, 0, 0.891383, 6.08273 )
