@@ -6,6 +6,7 @@ render_mode unshaded, cull_disabled; // to raymarch in local space
 //CONF
 uniform vec3 domainScale = vec3(10.0);
 uniform vec3 repeatLimit = vec3(2.0);
+uniform bool doRepeat = false;
 
 // START SHAPES
 
@@ -100,7 +101,11 @@ vec3 limitedRepeat(vec3 p, vec3 c, vec3 limit){
 float GetDist(vec3 p){
 //	float d = length(p) - .5; //Sphere
 //	d = length(vec2(length(p.xz) - .5, p.y)) - .1; //torus
-	vec3 q = limitedRepeat(p, domainScale, repeatLimit);
+	vec3 q = p;
+	if(doRepeat){
+		q = limitedRepeat(p, domainScale, repeatLimit);
+		
+	}
 	float d = MAX_DIST;
 	d = min(d, getSpheres(q));
 	d = min(d, getBoxes(q));
@@ -183,11 +188,12 @@ void fragment() {
 		vec3 p = ro + rd * d;
 		vec3 n = GetNormal(p);
 		float fresnel = sqrt(1.0 - dot(n, VIEW));
-		float gi = RayMarch(p, n);
+		float reflection = RayMarch(p + n*0.003, reflect(rd, n));
 		col = (n).rgb;
 		col = p;
 		col = vec3(.6, .9, 1.0);
-		col *= 1.0-(float(steps)*0.0125);
+		col -= vec3( (1.0 - (clamp( reflection, 0.1, 100.0 )/ 100.0)) *0.1 );
+		col *= 1.0-(float(steps)*0.0125*0.5);
 //		col *= length(p + n * gi) /(length(p));
 //		col *= (1.0-vec3( float(steps/MAX_STEPS) )); //"AO"
 //		RIM = 0.2;
