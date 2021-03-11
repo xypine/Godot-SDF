@@ -5,3 +5,7 @@
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
+tonemap_mode = 2
+auto_exposure_enabled = true
+glow_enabled = true
+glow_bicubic_upscale = true

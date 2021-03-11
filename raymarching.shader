@@ -7,6 +7,8 @@ render_mode unshaded, cull_disabled; // to raymarch in local space
 uniform vec3 domainScale = vec3(10.0);
 uniform vec3 repeatLimit = vec3(2.0);
 uniform bool doRepeat = false;
+uniform bool debugNormal = false;
+uniform vec3 sunpos = vec3(0.9, 1.0, 0.7);
 
 // START SHAPES
 
@@ -187,27 +189,37 @@ void fragment() {
 		int steps = RayMarchSteps(ro, rd);
 		vec3 p = ro + rd * d;
 		vec3 n = GetNormal(p);
-		float fresnel = sqrt(1.0 - dot(n, VIEW));
-		// Reflection pass 1
 		vec3 refnorm = reflect(rd, n);
-		float reflection = RayMarch(p + n*0.003, refnorm);
-		// Reflection pass 2
-		vec3 rp = (p + n*0.003) + reflect(rd, n) * reflection;
-		vec3 rn = GetNormal(rp);
-		float reflection2= RayMarch(rp + rn*0.003, reflect(refnorm, rn));
-		//
-		col = (n).rgb;
-		col = p;
-		col = vec3(.6, .9, 1.0);
-		col -= vec3( (1.0 - (clamp( reflection, 0.1, 100.0 )/ 100.0)) *0.1 ); // Pass 1
-		col -= vec3( (1.0 - (clamp( reflection2, 0.1, 1000.0 )/ 1000.0)) *0.1 ); // Pass 2
-		col *= 1.0-(float(steps)*0.0125*0.5);
-//		col *= length(p + n * gi) /(length(p));
-//		col *= (1.0-vec3( float(steps/MAX_STEPS) )); //"AO"
-//		RIM = 0.2;
-//		METALLIC = 1.0;
-//		ROUGHNESS = 0.01 * (1.0 - fresnel);
-//		col = (vec3(0.01, 0.03, 0.05) + (0.1 * fresnel)).rgb;
+		vec3 upnorm = normalize( sunpos );
+		
+		if (debugNormal){
+			col = (n).rgb;
+		}
+		else{
+			float fresnel = sqrt(1.0 - dot(n, VIEW));
+			// Reflection pass 1
+			float reflection = RayMarch(p + n*0.003, refnorm);
+			float gi = RayMarch(p + n*0.003, upnorm);
+			// Reflection pass 2
+			vec3 rp = (p + n*0.003) + reflect(rd, n) * reflection;
+			vec3 rn = GetNormal(rp);
+			float reflection2= RayMarch(rp + rn*0.003, reflect(refnorm, rn));
+			//
+			col = (n).rgb;
+			col = p;
+			col = vec3(.6, .9, 1.0);
+			col *= clamp(1.0+(float(steps)*0.0125*0.5), 1.0, 1.5);
+			float gi_f = (0.0 + (clamp( gi, 1.0, 100.0 )/ 100.0)) * 1.0;
+			col *= (col + vec3(gi_f))/2.0;
+			col -= clamp(vec3( (1.0 - (clamp( reflection, 0.1, 100.0 )/ 100.0)) *0.1 ), 0.0, 0.5); // Pass 1
+	//		col -= vec3( (1.0 - (clamp( reflection2, 0.1, 1000.0 )/ 1000.0)) *0.1 ); // Pass 2
+			col += clamp(vec3(1.0, 1.0, 1.0) * (d/50.0), 0.0, 1.0); //fog
+	//		col *= (1.0-vec3( float(steps/MAX_STEPS) )); //"AO"
+	//		RIM = 0.2;
+	//		METALLIC = 1.0;
+	//		ROUGHNESS = 0.01 * (1.0 - fresnel);
+	//		col = (vec3(0.01, 0.03, 0.05) + (0.1 * fresnel)).rgb;
+		}
 	}
 	ALBEDO = col;
 }

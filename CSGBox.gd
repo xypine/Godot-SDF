@@ -6,10 +6,14 @@ extends CSGBox
 # var a = 2
 # var b = "text"
 const slots = 5
+var debugN = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	for i in range(slots):
+		var ind = i + 1
+		material.set_shader_param("s"+str(ind)+"s", 0.0);
+		material.set_shader_param("b"+str(ind)+"s", 0.0);
 
 func recursiveFlattenChildren(o: Node, target: Array):
 	for i in o.get_children():
@@ -20,6 +24,8 @@ func modv(v: Vector3, l: Vector3):
 	return Vector3(fmod(v.x, l.x), fmod(v.y, l.y), fmod(v.z, l.z))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("debug_normals"):
+		debugN = not debugN
 	var ind = 0
 	var indb = 0
 	var limits = Vector3(width, height, depth)/2.0
@@ -40,3 +46,4 @@ func _process(delta):
 			material.set_shader_param("b"+str(indb)+"s", i.scale.x);
 			material.set_shader_param("b"+str(indb)+"b", not i.invert_faces);
 	material.set_shader_param("domainScale", limits);
+	material.set_shader_param("debugNormal", debugN);
