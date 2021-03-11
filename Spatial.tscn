@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://raymarching.shader" type="Shader" id=1]
 [ext_resource path="res://CSGBox.gd" type="Script" id=2]
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -20,11 +21,11 @@ shader_param/s3b = true
 shader_param/s4 = Vector3( 0.554398, 0, 0 )
 shader_param/s4s = 0.0
 shader_param/s4b = true
-shader_param/b1 = Vector3( 0, -0.0609708, 0 )
-shader_param/b1s = 1.0
+shader_param/b1 = Vector3( 0, -11.9314, 0 )
+shader_param/b1s = 28.0
 shader_param/b1b = true
-shader_param/b2 = Vector3( 0, 0.626205, 0 )
-shader_param/b2s = 0.9
+shader_param/b2 = Vector3( 0, 6.50641, 0 )
+shader_param/b2s = 20.0
 shader_param/b2b = false
 
 [sub_resource type="Animation" id=2]
@@ -65,7 +66,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0362064, 0 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="CSGBox/BB/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00123, 0.431529, -0.0143469 )
-visible = false
+operation = 2
 invert_faces = true
 radius = 0.25
 radial_segments = 8
@@ -73,31 +74,32 @@ rings = 4
 
 [node name="CSGSphere3" type="CSGSphere" parent="CSGBox/BB/Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00123, 0.529909, -0.0143469 )
-visible = false
 radius = 0.2
 radial_segments = 8
 rings = 4
 smooth_faces = false
 
 [node name="Boxes" type="Spatial" parent="CSGBox"]
+visible = false
 
 [node name="CSGBox3" type="CSGBox" parent="CSGBox/Boxes"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0609708, 0 )
-visible = false
+transform = Transform( 28, 0, 0, 0, 28, 0, 0, 0, 28, 0, -11.9314, 0 )
+use_collision = true
 width = 1.0
 height = 1.0
 depth = 1.0
 
 [node name="CSGBox2" type="CSGBox" parent="CSGBox/Boxes"]
-transform = Transform( 0.9, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.626205, 0 )
-visible = false
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 6.50641, 0 )
+operation = 2
+use_collision = true
 invert_faces = true
 width = 1.0
 height = 1.0
 depth = 1.0
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.908333, 0.418248, 0, -0.418248, 0.908333, 0, 0.892933, 1.13886 )
+[node name="Player" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.372661, 0.936689, -4.53549 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
