@@ -11,7 +11,7 @@ shader_param/repeatLimit = Vector3( 1, 1, 1 )
 shader_param/doRepeat = false
 shader_param/debugNormal = false
 shader_param/sunpos = Vector3( 0.9, 1, 0.7 )
-shader_param/s1 = Vector3( 0.372661, 0.436689, -4.71462 )
+shader_param/s1 = Vector3( -4.40899, 0.436689, -5.60859 )
 shader_param/s1s = 0.5
 shader_param/s1b = true
 shader_param/s2 = Vector3( 0, -5.5864, 0 )
@@ -76,7 +76,7 @@ height = 1.0
 depth = 1.0
 
 [node name="Player" parent="CSGBox" instance=ExtResource( 3 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.372661, 0.936689, -4.71462 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.40899, 0.936689, -5.60859 )
 
 [node name="Spheres" type="Spatial" parent="CSGBox"]
 visible = false

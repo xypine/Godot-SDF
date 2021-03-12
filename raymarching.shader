@@ -204,14 +204,30 @@ void fragment() {
 			vec3 rp = (p + n*0.003) + reflect(rd, n) * reflection;
 			vec3 rn = GetNormal(rp);
 			float reflection2= RayMarch(rp + rn*0.003, reflect(refnorm, rn));
+			float refgi = RayMarch(rp + rn*0.003, upnorm);
+			if(refgi >= MAX_DIST){
+				refgi = 1.0;
+			}
+			if(reflection2 >= MAX_DIST){
+				//reflection2 = 1.0;
+			}
+			if(reflection2 < 0.0){
+				reflection2 = 0.0;
+			}
 			//
-			col = (n).rgb;
 			col = p;
 			col = vec3(.6, .9, 1.0);
 			col *= clamp(1.0+(float(steps)*0.0125*0.5), 1.0, 1.5);
 			float gi_f = (0.0 + (clamp( gi, 1.0, 100.0 )/ 100.0)) * 1.0;
 			col *= (col + vec3(gi_f))/2.0;
-			col -= clamp(vec3( (1.0 - (clamp( reflection, 0.1, 100.0 )/ 100.0)) *0.1 ), 0.0, 0.5); // Pass 1
+			//COL2
+			vec3 col2 = vec3(.6, .9, 1.0);
+			float refgi_f = (0.0 + (clamp( refgi, 1.0, 100.0 )/ 100.0)) * 1.0;
+			col2 *= (col2 + vec3(refgi_f))/1.0;
+			col2 += (vec3(clamp(reflection2, 0.0, 100.0))*col2)/100.0;
+			//END COL2
+			col += (vec3(clamp(reflection, 0.0, 100.0))*col2)/50.0;
+//			col -= clamp(vec3( (1.0 - (clamp( reflection, 0.1, 100.0 )/ 100.0)) *0.1 ), 0.0, 0.5); // Pass 1
 	//		col -= vec3( (1.0 - (clamp( reflection2, 0.1, 1000.0 )/ 1000.0)) *0.1 ); // Pass 2
 			col += clamp(vec3(1.0, 1.0, 1.0) * (d/50.0), 0.0, 1.0); //fog
 	//		col *= (1.0-vec3( float(steps/MAX_STEPS) )); //"AO"
@@ -219,6 +235,7 @@ void fragment() {
 	//		METALLIC = 1.0;
 	//		ROUGHNESS = 0.01 * (1.0 - fresnel);
 	//		col = (vec3(0.01, 0.03, 0.05) + (0.1 * fresnel)).rgb;
+			//col = vec3(reflection2);
 		}
 	}
 	ALBEDO = col;
