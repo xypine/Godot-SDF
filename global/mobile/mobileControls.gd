@@ -10,10 +10,15 @@ extends Node2D
 func _ready():
 	pass # Replace with function body.
 
+var touchEnabled = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	print(Vector2(inputX, inputY))
+	if inputX != 0:
+		touchEnabled = true
+	if inputY != 0:
+		touchEnabled = true
 
 
 var inputX = 0
@@ -22,10 +27,18 @@ var inputF = false
 var eTipVisible = false
 var inputE = false
 
-var startingPositions = {}
 var startingPosition = Vector2(0, 0)
 var dragging = false
 var dragIndex = -99
+
+#
+
+var inputX2 = 0
+var inputY2 = 0
+
+var startingPosition2 = Vector2(0, 0)
+var dragging2 = false
+var dragIndex2 = -99
 
 func handleTouch(event):
 	inputE = false
@@ -37,10 +50,22 @@ func handleTouch(event):
 				var dist2 = pos.y - startingPosition.y
 				inputX = dist
 				inputY = dist2
-			elif event:
+			elif true: #event
 				dragging = true
 				dragIndex = event.index
 				startingPosition = event.position
+		else:
+			if dragging2:
+				inputF = false
+				var pos = event.position
+				var dist = pos.x - startingPosition2.x
+				var dist2 = pos.y - startingPosition2.y
+				inputX2 = dist
+				inputY2 = dist2
+			elif true: #event
+				dragging2 = true
+				dragIndex2 = event.index
+				startingPosition2 = event.position
 	if event is InputEventScreenTouch:
 		if event.position.x <= get_viewport_rect().size.x / 2:
 			if event.index == dragIndex and not event.pressed:
@@ -51,10 +76,15 @@ func handleTouch(event):
 			elif event.position.y < 21:
 				if eTipVisible and event.pressed:
 					inputE = true
-					eTipVisible = false
+#					eTipVisible = false
 		elif event.position.x > get_viewport_rect().size.x / 2:
-			if event.pressed:
-				inputF = true
+			if event.index == dragIndex2 and not event.pressed:
+				dragging2 = false
+				inputX2 = 0
+				inputY2 = 0
+				dragIndex2 = -99
+			if event.pressed and dragging2 == false:
+				inputF = true #true
 			else:
 				inputF = false
 

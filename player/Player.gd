@@ -25,12 +25,20 @@ var can_slide = false
 func _ready():
 	$Head/DirectionIndicator.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+func _process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if (event is InputEventMouseMotion) and (not MobileControls.touchEnabled):
 		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 10
 		$Head.rotation_degrees.x = clamp($Head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 10, -70, 80)
-	
+	elif MobileControls.touchEnabled:
+		rotation_degrees.y -= MobileControls.inputX2 * mouse_sensitivity / 20
+		$Head.rotation_degrees.x = clamp($Head.rotation_degrees.x - MobileControls.inputY2 * mouse_sensitivity / 20, -70, 80)
 	direction = Vector3()
 	walk()
 
