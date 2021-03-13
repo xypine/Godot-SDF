@@ -19,6 +19,15 @@ config/name="sdf-raymarching"
 run/main_scene="res://Spatial.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=256
+window/size/height=150
+window/size/test_width=1024
+window/size/test_height=600
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [input]
 
 debug_normals={

@@ -103,6 +103,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BackgroundText2" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -404.0
+margin_top = -108.0
+margin_right = -382.0
+margin_bottom = -96.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AmmoText" type="Label" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -113,6 +127,21 @@ margin_top = -108.0
 margin_right = -92.0
 margin_bottom = -94.0
 text = "30"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPSText" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -404.0
+margin_top = -108.0
+margin_right = -388.0
+margin_bottom = -94.0
+text = "FPS"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false

@@ -62,6 +62,18 @@ func _process(delta):
 	$BackgroundText.margin_right = $AmmoText.margin_right
 	$BackgroundText.margin_bottom = $AmmoText.margin_bottom
 	
+	
+	# BRR
+	$FPSText.margin_top = get_viewport().size.y / 10 * -1
+	$FPSText.margin_left = get_viewport().size.y / 10 * 0
+	$FPSText.margin_right = $FPSText.margin_left + 16
+	$FPSText.margin_bottom = $FPSText.margin_top + 12
+	
+	$BackgroundText2.margin_top = $FPSText.margin_top
+	$BackgroundText2.margin_left = $FPSText.margin_left
+	$BackgroundText2.margin_right = $FPSText.margin_right
+	$BackgroundText2.margin_bottom = $FPSText.margin_bottom
+	
 	# If sprinting orient the weapon
 	if player.speed_multiplier == 2 and not $ReloadTween.is_active() and not player.get_node("CrouchTween").is_active():
 		weapon.rotation_degrees = lerp(weapon.rotation_degrees, Vector3(-5, 35, 15), 10 * delta)
