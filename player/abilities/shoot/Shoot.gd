@@ -113,7 +113,8 @@ func _process(delta):
 	hand.rotation_degrees.y = lerp(hand.rotation_degrees.y, mouse_relative_x / 20, weapon_sway * delta)
 	hand.rotation_degrees.x = lerp(hand.rotation_degrees.x, -mouse_relative_y / 10, weapon_sway * delta)
 	
-	if Input.is_mouse_button_pressed(BUTTON_LEFT) and $FireRate.is_stopped() and player.is_on_floor():
+	#(Input.is_action_pressed("shoot") and (not MobileControls.visible) ) or 
+	if (MobileControls.inputF) and $FireRate.is_stopped() and player.is_on_floor():
 		if not player.speed_multiplier == 2 and not $ReloadTween.is_active() and weapon.rotation_degrees.y < 5:
 			$FireRate.start()
 			if ammo > 0:

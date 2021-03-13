@@ -41,7 +41,7 @@ func walk():
 	else:
 		head_angle = 0
 	camera_height = -0.1
-	if Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_Z) or Input.is_key_pressed(KEY_UP):
+	if Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_Z) or Input.is_key_pressed(KEY_UP) or MobileControls.inputY < 0:
 		direction.z = -1
 		if Input.is_key_pressed(KEY_SHIFT) and is_on_floor() and not Input.is_mouse_button_pressed(BUTTON_LEFT) and not Input.is_mouse_button_pressed(BUTTON_RIGHT) and not $CrouchTween.is_active():
 			if is_crouched:
@@ -49,12 +49,12 @@ func walk():
 			speed_multiplier = 2
 			camera_height = -0.3
 			head_angle = 0.6
-	elif Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN):
+	elif Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN) or MobileControls.inputY > 0:
 		direction.z = 1
 	
-	if Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_Q) or Input.is_key_pressed(KEY_LEFT):
+	if Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_Q) or Input.is_key_pressed(KEY_LEFT) or MobileControls.inputX < 0:
 		direction.x = -1
-	elif Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT):
+	elif Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT) or MobileControls.inputX > 0:
 		direction.x = 1
 	
 	direction = direction.normalized()
