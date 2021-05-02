@@ -23,7 +23,7 @@ shader_param/s3b = false
 shader_param/s4 = Vector3( 0.372661, 0.436689, -4.53549 )
 shader_param/s4s = 0.0
 shader_param/s4b = true
-shader_param/b1 = Vector3( 0, 0.0551276, 0 )
+shader_param/b1 = Vector3( 0, -0.194232, 0 )
 shader_param/b1s = 28.0
 shader_param/b1b = true
 shader_param/b2 = Vector3( 0, 6.50641, 0 )
@@ -60,7 +60,7 @@ script = ExtResource( 2 )
 visible = false
 
 [node name="CSGBox3" type="CSGBox" parent="CSGBox/Boxes"]
-transform = Transform( 28, 0, 0, 0, 28, 0, 0, 0, 28, 0, 0.0551276, 0 )
+transform = Transform( 28, 0, 0, 0, 28, 0, 0, 0, 28, 0, -0.194232, 0 )
 use_collision = true
 width = 1.0
 height = 1.0
@@ -77,6 +77,7 @@ depth = 1.0
 
 [node name="Player" parent="CSGBox" instance=ExtResource( 3 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.40899, 0.936689, -5.60859 )
+visible = false
 
 [node name="Spheres" type="Spatial" parent="CSGBox"]
 visible = false
