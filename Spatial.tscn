@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://raymarching.shader" type="Shader" id=1]
 [ext_resource path="res://CSGBox.gd" type="Script" id=2]
@@ -6,29 +6,38 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
-shader_param/domainScale = Vector3( 12, 15.0786, 12 )
+shader_param/domainScale = Vector3( 25, 25, 25 )
 shader_param/repeatLimit = Vector3( 1, 1, 1 )
 shader_param/doRepeat = false
 shader_param/debugNormal = false
 shader_param/sunpos = Vector3( 0.9, 1, 0.7 )
-shader_param/s1 = Vector3( -4.40899, 0.436689, -5.60859 )
-shader_param/s1s = 0.5
+shader_param/s1 = Vector3( 0, 10.3574, 3.23325 )
+shader_param/s1s = 3.0
 shader_param/s1b = true
-shader_param/s2 = Vector3( 0, -5.5864, 0 )
-shader_param/s2s = 3.0
+shader_param/s2 = Vector3( 0.354323, 27.7418, -7.15355 )
+shader_param/s2s = 0.5
 shader_param/s2b = true
-shader_param/s3 = Vector3( 0, -1.98857, 0 )
-shader_param/s3s = 1.9
+shader_param/s3 = Vector3( 0.354323, 27.7418, -7.15355 )
+shader_param/s3s = 0.0
 shader_param/s3b = false
 shader_param/s4 = Vector3( 0.372661, 0.436689, -4.53549 )
 shader_param/s4s = 0.0
 shader_param/s4b = true
-shader_param/b1 = Vector3( 0, -0.194232, 0 )
-shader_param/b1s = 28.0
+shader_param/b1 = Vector3( 0, 15, 0 )
+shader_param/b1s = 20.0
 shader_param/b1b = true
-shader_param/b2 = Vector3( 0, 6.50641, 0 )
-shader_param/b2s = 20.0
-shader_param/b2b = false
+shader_param/b2 = Vector3( 11.0938, 18.9059, 0 )
+shader_param/b2s = 6.0
+shader_param/b2b = true
+shader_param/b3 = Vector3( 0, 0, 0 )
+shader_param/b3s = 28.0
+shader_param/b3b = true
+shader_param/b4 = Vector3( 0, 14.8303, 7.78246 )
+shader_param/b4s = 10.0
+shader_param/b4b = false
+
+[sub_resource type="Animation" id=3]
+resource_name = "disable"
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
@@ -50,24 +59,38 @@ tracks/0/keys = {
 [node name="Spatial" type="Spatial"]
 
 [node name="CSGBox" type="CSGBox" parent="."]
-width = 24.0
-height = 30.1572
-depth = 24.0
+width = 50.0
+height = 50.0
+depth = 50.0
 material = SubResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Boxes" type="Spatial" parent="CSGBox"]
 visible = false
 
+[node name="CSGBox4" type="CSGBox" parent="CSGBox/Boxes"]
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 15, 0 )
+use_collision = true
+width = 1.0
+height = 1.0
+depth = 1.0
+
+[node name="CSGBox5" type="CSGBox" parent="CSGBox/Boxes"]
+transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 11.0938, 18.9059, 0 )
+use_collision = true
+width = 1.0
+height = 1.0
+depth = 1.0
+
 [node name="CSGBox3" type="CSGBox" parent="CSGBox/Boxes"]
-transform = Transform( 28, 0, 0, 0, 28, 0, 0, 0, 28, 0, -0.194232, 0 )
+transform = Transform( 28, 0, 0, 0, 28, 0, 0, 0, 28, 0, 0, 0 )
 use_collision = true
 width = 1.0
 height = 1.0
 depth = 1.0
 
 [node name="CSGBox2" type="CSGBox" parent="CSGBox/Boxes"]
-transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 6.50641, 0 )
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 14.8303, 7.78246 )
 operation = 2
 use_collision = true
 invert_faces = true
@@ -75,24 +98,20 @@ width = 1.0
 height = 1.0
 depth = 1.0
 
-[node name="Player" parent="CSGBox" instance=ExtResource( 3 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.40899, 0.936689, -5.60859 )
-visible = false
-
 [node name="Spheres" type="Spatial" parent="CSGBox"]
 visible = false
 
 [node name="CSGSphere" type="CSGSphere" parent="CSGBox/Spheres"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.5864, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.3574, 3.23325 )
+operation = 2
 use_collision = true
 radius = 3.0
 
-[node name="CSGSphere2" type="CSGSphere" parent="CSGBox/Spheres/CSGSphere"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.59783, 0 )
-operation = 2
-invert_faces = true
-radius = 1.9
+[node name="Player" parent="CSGBox" instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.354323, 28.2418, -7.15355 )
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
+autoplay = "disable"
+anims/disable = SubResource( 3 )
 anims/idle = SubResource( 2 )

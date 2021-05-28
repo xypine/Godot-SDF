@@ -125,6 +125,17 @@ func _process(delta):
 				shoot()
 			else:
 				play_sound(empty_sound, 0, 0)
+	if (Input.is_action_pressed("shoot")) and $FireRate.is_stopped() and player.is_on_floor():
+		if not player.speed_multiplier == 2 and not $ReloadTween.is_active() and weapon.rotation_degrees.y < 5:
+			$FireRate.start()
+			if ammo > 0:
+				ammo -= 1
+				$AmmoText.text = str(ammo)
+				if ammo <= 5:
+					$AmmoText.modulate = Color(1, 0, 0)
+				shoot()
+			else:
+				play_sound(empty_sound, 0, 0)
 			
 	# Animation when falling on the ground
 	if player.is_on_floor() and not player.on_ground:

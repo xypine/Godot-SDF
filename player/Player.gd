@@ -34,8 +34,8 @@ func _process(delta):
 
 func _input(event):
 	if (event is InputEventMouseMotion) and (not MobileControls.touchEnabled):
-		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 10
-		$Head.rotation_degrees.x = clamp($Head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 10, -70, 80)
+		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 2
+		$Head.rotation_degrees.x = clamp($Head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 1, -70, 80)
 	elif MobileControls.touchEnabled:
 		rotation_degrees.y -= MobileControls.inputX2 * mouse_sensitivity / 20
 		$Head.rotation_degrees.x = clamp($Head.rotation_degrees.x - MobileControls.inputY2 * mouse_sensitivity / 20, -70, 80)

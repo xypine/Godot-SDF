@@ -5,7 +5,7 @@ extends CSGBox
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const slots = 5
+const slots = 10
 var debugN = false
 
 # Called when the node enters the scene tree for the first time.
@@ -24,7 +24,7 @@ func modv(v: Vector3, l: Vector3):
 	return Vector3(fmod(v.x, l.x), fmod(v.y, l.y), fmod(v.z, l.z))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("debug_normals"):
+	if false and Input.is_action_just_pressed("debug_normals"):
 		debugN = not debugN
 	var ind = 0
 	var indb = 0

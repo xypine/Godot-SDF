@@ -31,6 +31,12 @@ uniform bool b1b = true;
 uniform vec3 b2;
 uniform float b2s;
 uniform bool b2b = true;
+uniform vec3 b3;
+uniform float b3s;
+uniform bool b3b = true;
+uniform vec3 b4;
+uniform float b4s;
+uniform bool b4b = true;
 
 // END SHAPES
 
@@ -69,10 +75,10 @@ float getSpheres(vec3 p){
 float getBoxes(vec3 p){
 	float o = MAX_DIST;
 	
-	vec3 boxes[] = {b1, b2};
-	float scales[] = {b1s, b2s};
-	bool bools[] = {b1b, b2b};
-	int count = 2;
+	vec3 boxes[] = {b1, b2, b3, b4};
+	float scales[] = {b1s, b2s, b3s, b4s};
+	bool bools[] = {b1b, b2b, b3b, b4b};
+	int count = 4;
 	for(int i=0; i < count;i += 1){
 		vec3 transform = boxes[i];
 		float scale = scales[i];
@@ -109,8 +115,8 @@ float GetDist(vec3 p){
 		
 	}
 	float d = MAX_DIST;
-	d = min(d, getSpheres(q));
 	d = min(d, getBoxes(q));
+	d = min(d, getSpheres(q));
 	return d;
 }
 
@@ -218,15 +224,13 @@ void fragment() {
 			col = p;
 			col = vec3(.6, .9, 1.0);
 			col *= clamp(1.0+(float(steps)*0.0125*0.5), 1.0, 1.5);
-			float gi_f = (0.0 + (clamp( gi, 1.0, 100.0 )/ 100.0)) * 1.0;
-			col *= (col + vec3(gi_f))/2.0;
 			//COL2
 			vec3 col2 = vec3(.6, .9, 1.0);
 			float refgi_f = (0.0 + (clamp( refgi, 1.0, 100.0 )/ 100.0)) * 1.0;
 			col2 *= (col2 + vec3(refgi_f))/1.0;
-			col2 += (vec3(clamp(reflection2, 0.0, 100.0))*col2)/100.0;
+			//col2 += (vec3(clamp(reflection2, 0.0, 100.0))*col2)/100.0;
 			//END COL2
-			col += (vec3(clamp(reflection, 0.0, 100.0))*col2)/50.0;
+			col += (vec3(clamp(reflection, 0.0, 100.0))*col2)/200.0;
 //			col -= clamp(vec3( (1.0 - (clamp( reflection, 0.1, 100.0 )/ 100.0)) *0.1 ), 0.0, 0.5); // Pass 1
 	//		col -= vec3( (1.0 - (clamp( reflection2, 0.1, 1000.0 )/ 1000.0)) *0.1 ); // Pass 2
 			col += clamp(vec3(1.0, 1.0, 1.0) * (d/50.0), 0.0, 1.0); //fog
@@ -236,6 +240,9 @@ void fragment() {
 	//		ROUGHNESS = 0.01 * (1.0 - fresnel);
 	//		col = (vec3(0.01, 0.03, 0.05) + (0.1 * fresnel)).rgb;
 			//col = vec3(reflection2);
+			
+			float gi_f = (0.0 + (clamp( gi, 1.0, 100.0 )/ 100.0)) * 1.0;
+			col *= (col + vec3(gi_f))/3.0;
 		}
 	}
 	ALBEDO = col;
