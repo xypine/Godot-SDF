@@ -45,15 +45,33 @@ shader_param/s4b = true
 shader_param/b1 = Vector3( 0, 15, 0 )
 shader_param/b1s = 20.0
 shader_param/b1b = true
-shader_param/b2 = Vector3( 11.0938, 18.9059, 0 )
-shader_param/b2s = 6.0
-shader_param/b2b = true
-shader_param/b3 = Vector3( 0, 0, 0 )
-shader_param/b3s = 28.0
+shader_param/b2 = Vector3( 0, 29.1643, 0 )
+shader_param/b2s = 10.0
+shader_param/b2b = false
+shader_param/b3 = Vector3( 11.0938, 18.9059, 0 )
+shader_param/b3s = 6.0
 shader_param/b3b = true
-shader_param/b4 = Vector3( 0, 14.8303, 7.78246 )
-shader_param/b4s = 10.0
-shader_param/b4b = false
+shader_param/b4 = Vector3( 0, 0, 0 )
+shader_param/b4s = 28.0
+shader_param/b4b = true
+shader_param/b5 = Vector3( 0, 14.8303, 6.6692 )
+shader_param/b5s = 10.0
+shader_param/b5b = false
+shader_param/b6 = Vector3( 0, 14.8898, 10.4151 )
+shader_param/b6s = 5.0
+shader_param/b6b = false
+shader_param/b7 = null
+shader_param/b7s = 0.0
+shader_param/b7b = true
+shader_param/b8 = null
+shader_param/b8s = 0.0
+shader_param/b8b = true
+shader_param/b9 = null
+shader_param/b9s = 0.0
+shader_param/b9b = true
+shader_param/b10 = null
+shader_param/b10s = 0.0
+shader_param/b10b = true
 
 [node name="Spatial" type="Spatial"]
 
@@ -79,6 +97,15 @@ width = 1.0
 height = 1.0
 depth = 1.0
 
+[node name="CSGBox7" type="CSGBox" parent="CSGCombiner/Boxes"]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 29.1643, 0 )
+operation = 2
+use_collision = true
+invert_faces = true
+width = 1.0
+height = 1.0
+depth = 1.0
+
 [node name="CSGBox5" type="CSGBox" parent="CSGCombiner/Boxes"]
 transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 11.0938, 18.9059, 0 )
 use_collision = true
@@ -94,7 +121,16 @@ height = 1.0
 depth = 1.0
 
 [node name="CSGBox2" type="CSGBox" parent="CSGCombiner/Boxes"]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 14.8303, 7.78246 )
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 14.8303, 6.6692 )
+operation = 2
+use_collision = true
+invert_faces = true
+width = 1.0
+height = 1.0
+depth = 1.0
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner/Boxes"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 14.8898, 10.4151 )
 operation = 2
 use_collision = true
 invert_faces = true

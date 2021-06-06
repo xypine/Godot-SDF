@@ -37,6 +37,24 @@ uniform bool b3b = true;
 uniform vec3 b4;
 uniform float b4s;
 uniform bool b4b = true;
+uniform vec3 b5;
+uniform float b5s;
+uniform bool b5b = true;
+uniform vec3 b6;
+uniform float b6s;
+uniform bool b6b = true;
+uniform vec3 b7;
+uniform float b7s;
+uniform bool b7b = true;
+uniform vec3 b8;
+uniform float b8s;
+uniform bool b8b = true;
+uniform vec3 b9;
+uniform float b9s;
+uniform bool b9b = true;
+uniform vec3 b10;
+uniform float b10s;
+uniform bool b10b = true;
 
 // END SHAPES
 
@@ -75,10 +93,10 @@ float getSpheres(vec3 p){
 float getBoxes(vec3 p){
 	float o = MAX_DIST;
 	
-	vec3 boxes[] = {b1, b2, b3, b4};
-	float scales[] = {b1s, b2s, b3s, b4s};
-	bool bools[] = {b1b, b2b, b3b, b4b};
-	int count = 4;
+	vec3 boxes[] = {b1, b2, b3, b4, b5, b6, b7, b8, b9, b10};
+	float scales[] = {b1s, b2s, b3s, b4s, b5s, b6s, b7s, b8s, b9s, b10s};
+	bool bools[] =   {b1b, b2b, b3b, b4b, b5b, b6b, b7b, b8b, b9b, b10b};
+	int count = 10;
 	for(int i=0; i < count;i += 1){
 		vec3 transform = boxes[i];
 		float scale = scales[i];
